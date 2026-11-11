@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en" data-desk="treaty" data-who="none">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puppy Kitty Non-Aggression Pact</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<script>
+/* Pick a desk before first paint: a different one from last time on every reload.
+   Force one with ?desk=treaty | checkpoint | hotline */
+(function () {
+  var desks = ['treaty', 'checkpoint', 'hotline'];
+  var forced = new URLSearchParams(location.search).get('desk');
+  var last = null, who = null;
+  try { last = localStorage.getItem('pknap-desk'); who = localStorage.getItem('pknap-who'); } catch (e) {}
+  var pool = desks.filter(function (d) { return d !== last; });
+  var desk = desks.indexOf(forced) > -1 ? forced : pool[Math.floor(Math.random() * pool.length)];
+  try { localStorage.setItem('pknap-desk', desk); } catch (e) {}
+  document.documentElement.dataset.desk = desk;
+  if (who === 'nova' || who === 'iggy') document.documentElement.dataset.who = who;
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #2b2d42; --white: #f1eff8; --lav: #c9cbee;
+  --tan: #d6b98c; --peri: #7c88c4; --pink: #e79ab5;
+  --display: 'Fraunces', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+html[data-desk="treaty"]     { --bg: #fde9ef; --fg: #2b2d42; --soft: #2b2d42; --accent: #c2264b; --field: #ffffff; --on-accent: #ffffff; }
+html[data-desk="checkpoint"] { --bg: #0f4a3c; --fg: #f6f3e4; --soft: #f6f3e4; --accent: #f2c94c; --field: #0b3a2f; --on-accent: #2b2d42; }
+html[data-desk="hotline"]    { --bg: #14121c; --fg: #ece9f5; --soft: #b3aec6; --accent: #ff5c6c; --field: #1f1c2b; --on-accent: #14121c; }
+
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font-family: var(--mono); font-size: 15px; line-height: 1.6; }
+h1, h2, p, ol, fieldset { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.desk { display: none; }
+html[data-desk="treaty"] .desk-treaty,
+html[data-desk="checkpoint"] .desk-checkpoint,
+html[data-desk="hotline"] .desk-hotline { display: flex; }
+.desk { min-height: 100vh; flex-direction: column; align-items: center; gap: 32px; padding: 32px 5% 40px; }
+.wrap { width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 28px; }
+
+.bar { width: 100%; max-width: 1120px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-bottom: 14px; border-bottom: 2px solid var(--fg); font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand img { width: 64px; height: 69px; padding: 6px; border-radius: 16px; background: #e9e7f2; }
+.brand b { display: block; font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: 4px; line-height: 1; }
+
+.label { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+.display { font-family: var(--display); font-weight: 900; letter-spacing: -1px; line-height: 0.98; }
+.soft { color: var(--soft); }
+
+/* who-are-you buttons */
+.who { display: flex; flex-wrap: wrap; gap: 12px; }
+.who button { flex: 1 1 160px; min-height: 56px; padding: 8px 16px; border: 2px solid var(--fg); border-radius: 8px; background: transparent; font-weight: 600; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+.who svg { width: 40px; height: 40px; flex: none; }
+html[data-who="nova"] .who [data-pick="nova"] { background: var(--navy); color: var(--white); border-color: var(--lav); box-shadow: 0 0 0 3px var(--lav); }
+html[data-who="iggy"] .who [data-pick="iggy"] { background: var(--tan); color: var(--navy); border-color: var(--peri); box-shadow: 0 0 0 3px var(--peri); }
+
+/* only-for-nova / only-for-iggy bits */
+[data-only] { display: none; }
+html[data-who="nova"] [data-only="nova"], html[data-who="iggy"] [data-only="iggy"], html[data-who="none"] [data-only="none"] { display: inline-flex; }
+
+.enter { display: flex; align-items: center; justify-content: center; min-height: 60px; padding: 10px 24px; border-radius: 8px; background: var(--accent); color: var(--on-accent); text-decoration: none; text-align: center; font-family: var(--display); font-weight: 700; font-size: 22px; }
+.enter:hover { filter: brightness(1.08); }
+.shuffle { align-self: flex-start; min-height: 44px; padding: 8px 14px; border: 2px dashed var(--soft); border-radius: 8px; background: transparent; color: var(--soft); font-size: 13px; }
+.foot { font-size: 13px; color: var(--soft); }
+.stamp { align-self: flex-start; padding: 6px 12px; border: 3px solid var(--accent); border-radius: 4px; color: var(--accent); font-weight: 600; font-size: 13px; letter-spacing: 2px; transform: rotate(-4deg); }
+
+/* 1. treaty */
+.desk-treaty .split { display: flex; flex-wrap: wrap; gap: 40px; align-items: stretch; }
+.paper { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 22px; padding: 40px; background: #ffffff; border: 2px solid var(--navy); border-radius: 6px; box-shadow: 8px 8px 0 var(--navy); }
+.paper h1 { font-size: clamp(34px, 5vw, 48px); }
+.articles { padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+.articles li { display: flex; gap: 16px; }
+.articles b { flex: 0 0 76px; white-space: nowrap; }
+.sigline { margin-top: auto; min-height: 64px; display: flex; align-items: flex-end; gap: 14px; padding: 0 8px 6px; border-bottom: 2px solid var(--navy); font-family: var(--display); font-style: italic; font-size: 22px; }
+.sigline svg { width: 50px; height: 50px; transform: rotate(-12deg); }
+.side { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 22px; padding-top: 8px; }
+.side h2 { font-family: var(--display); font-weight: 700; font-size: 30px; line-height: 1.1; }
+.desk-treaty .enter { background: var(--navy); color: #ffffff; border: 2px solid var(--navy); box-shadow: 5px 5px 0 var(--accent); }
+.group { display: flex; flex-direction: column; gap: 10px; }
+
+/* 2. checkpoint */
+.desk-checkpoint .bar { border-bottom-style: dashed; border-color: var(--accent); }
+.desk-checkpoint .wrap { max-width: 980px; }
+.desk-checkpoint .bar { max-width: 980px; }
+.ask { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.ask h1 { font-size: clamp(44px, 8vw, 72px); }
+.declared { flex-direction: column; align-items: center; padding: 8px 16px; border: 4px solid var(--accent); border-radius: 6px; color: var(--accent); font-weight: 600; transform: rotate(-5deg); line-height: 1.2; }
+.declared small { font-size: 11px; letter-spacing: 2px; }
+.declared span { font-size: 26px; letter-spacing: 3px; }
+.cards { display: flex; flex-wrap: wrap; gap: 24px; }
+.cards button { flex: 1 1 300px; min-width: 0; display: flex; align-items: center; gap: 24px; padding: 22px; text-align: left; background: #f6f3e4; color: var(--navy); border: 4px solid transparent; border-radius: 14px; }
+.cards svg { width: 116px; height: 116px; flex: none; }
+.cards b { display: block; font-family: var(--display); font-weight: 900; font-size: 34px; line-height: 1; }
+.cards small { display: block; margin-top: 6px; font-size: 13px; line-height: 1.5; }
+html[data-who="nova"] .cards [data-pick="nova"], html[data-who="iggy"] .cards [data-pick="iggy"] { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent); }
+.customs { padding: 16px 20px; border: 2px dashed var(--fg); border-radius: 8px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.customs legend { padding: 0 8px; }
+.customs label { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+.customs input { width: 22px; height: 22px; flex: none; accent-color: var(--accent); }
+
+/* 3. hotline */
+.desk-hotline { justify-content: center; }
+.desk-hotline .wrap, .desk-hotline .bar { max-width: 820px; }
+.desk-hotline .bar { border-bottom-color: #5b5670; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); animation: blink 1.6s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0.25; } }
+@media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+.hero { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
+.hero svg { width: 150px; height: 130px; flex: none; }
+.hero div { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.hero h1 { font-size: clamp(40px, 7vw, 60px); }
+.meter-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 12px; }
+.meter-head span:last-child { color: #ff7482; }
+.meter { margin-top: 10px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-align: center; }
+.meter div { padding: 10px 2px; border: 2px solid #5b5670; border-radius: 4px; color: var(--soft); overflow-wrap: anywhere; }
+.meter .on { background: var(--accent); border-color: var(--accent); color: #14121c; }
+.console { display: flex; flex-direction: column; gap: 20px; padding: 28px; border: 2px solid var(--fg); border-radius: 8px; }
+.desk-hotline .who button { letter-spacing: 2px; }
+.desk-hotline .enter { font-family: var(--mono); font-weight: 600; font-size: 17px; letter-spacing: 3px; }
+html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--lav); color: #14121c; }
+</style>
+</head>
+<body>
+
+<!-- shared drawings -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="nova" viewBox="0 0 100 100">
+    <path d="M22 50 C8 30 10 10 20 2 C34 10 44 24 46 36 Z" fill="#2b2d42"/>
+    <path d="M78 50 C92 30 90 10 80 2 C66 10 56 24 54 36 Z" fill="#2b2d42"/>
+    <path d="M25 42 C16 28 17 15 22 9 C31 16 38 26 40 36 Z" fill="#c9cbee"/>
+    <path d="M75 42 C84 28 83 15 78 9 C69 16 62 26 60 36 Z" fill="#c9cbee"/>
+    <path d="M50 30 Q80 30 80 58 Q80 76 62 88 Q50 96 38 88 Q20 76 20 58 Q20 30 50 30 Z" fill="#2b2d42"/>
+    <path d="M24 66 Q38 60 50 68 Q62 60 76 66 Q72 82 62 88 Q50 96 38 88 Q28 82 24 66 Z" fill="#f1eff8"/>
+    <path d="M45 36 V44 M55 36 V44" fill="none" stroke="#f1eff8" stroke-width="2.6" stroke-linecap="round"/>
+    <ellipse cx="37" cy="55" rx="6" ry="5.4" fill="#f1eff8"/><circle cx="37" cy="55" r="3.4" fill="#3f8fe0"/>
+    <ellipse cx="63" cy="55" rx="6" ry="5.4" fill="#f1eff8"/><circle cx="63" cy="55" r="3.4" fill="#3f8fe0"/>
+    <path d="M46 71 H54 L50 76 Z" fill="#e79ab5"/>
+    <path d="M50 76 Q46 81 42 78 M50 76 Q54 81 58 78" fill="none" stroke="#2b2d42" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="iggy" viewBox="0 0 100 100">
+    <path d="M26 46 L12 6 L46 28 Z" fill="#7c88c4"/>
+    <path d="M74 46 L88 6 L54 28 Z" fill="#7c88c4"/>
+    <path d="M27 38 L19 15 L38 28 Z" fill="#ecd9b8"/>
+    <path d="M73 38 L81 15 L62 28 Z" fill="#ecd9b8"/>
+    <path d="M50 24 Q78 24 80 54 L88 64 L78 70 Q66 92 50 92 Q34 92 22 70 L12 64 L20 54 Q22 24 50 24 Z" fill="#d6b98c"/>
+    <path d="M34 30 Q50 10 68 26 Q56 26 51 37 Q46 28 34 30 Z" fill="#7c88c4"/>
+    <path d="M50 39 L53 44 L50 49 L47 44 Z" fill="none" stroke="#7c88c4" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="37" cy="60" r="11" fill="#ffffff" fill-opacity="0.45" stroke="#1b1c2b" stroke-width="2.4"/>
+    <circle cx="63" cy="60" r="11" fill="#ffffff" fill-opacity="0.45" stroke="#1b1c2b" stroke-width="2.4"/>
+    <path d="M48 60 H52" stroke="#1b1c2b" stroke-width="2.4"/>
+    <circle cx="37" cy="60" r="3.2" fill="#4f9a4a"/><circle cx="63" cy="60" r="3.2" fill="#4f9a4a"/>
+    <ellipse cx="50" cy="75" rx="5" ry="3.6" fill="#4a3b3b"/>
+    <path d="M50 78 V82 M50 82 Q46 86 43 83 M50 82 Q54 86 57 83" fill="none" stroke="#4a3b3b" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="paw" viewBox="0 0 60 60">
+    <path d="M30 28 Q44 28 46 40 Q47 50 37 49 Q30 47 23 49 Q13 50 14 40 Q16 28 30 28 Z"/>
+    <ellipse cx="11" cy="24" rx="6" ry="7.5" transform="rotate(-20 11 24)"/>
+    <ellipse cx="23" cy="13" rx="6" ry="8"/><ellipse cx="37" cy="13" rx="6" ry="8"/>
+    <ellipse cx="49" cy="24" rx="6" ry="7.5" transform="rotate(20 49 24)"/>
+  </symbol>
+</svg>
+
+<!-- ============ 1 · SIGN THE TREATY ============ -->
+<main class="desk desk-treaty">
+  <header class="bar">
+    <span class="brand"><img src="logo.svg" alt="PKNAP logo: Nova and Iggy curled into a yin-yang"><span><b>PKNAP</b>Office of the Treaty</span></span>
+    <span>Members only (both of you)</span>
+  </header>
+  <div class="wrap">
+    <div class="split">
+      <section class="paper">
+        <h1 class="display">The Puppy Kitty Non-Aggression Pact</h1>
+        <p style="font-size:14px">The undersigned, being one (1) kitty and one (1) puppy, do solemnly agree to the following terms before entering the premises.</p>
+        <ol class="articles">
+          <li><b>Art. I</b><span>No hissing, no growling, and no pointed tail flicks.</span></li>
+          <li><b>Art. II</b><span>Chasing is allowed only when both parties agree it is a game.</span></li>
+          <li><b>Art. III</b><span>The warm spot is shared territory. So is the good blanket.</span></li>
+          <li><b>Art. IV</b><span>Zoomies shall be declared in advance where practical.</span></li>
+          <li><b>Art. V</b><span>Grilled cheese is split evenly. Stolen halves go before the tribunal.</span></li>
+        </ol>
+        <div class="sigline" aria-live="polite">
+          <span data-only="nova"><svg style="fill:#2b2d42"><use href="#paw"/></svg></span>
+          <span data-only="iggy"><svg style="fill:#7c88c4"><use href="#paw"/></svg></span>
+          <span data-say="signed">awaiting paw print</span>
+        </div>
+        <div class="label">Signature of the entering party</div>
+      </section>
+      <section class="side">
+        <h2>Sign here to come in.</h2>
+        <div class="group">
+          <div class="label">1 · Who is signing?</div>
+          <div class="who">
+            <button type="button" data-pick="nova" aria-pressed="false">Nova, the Kitty</button>
+            <button type="button" data-pick="iggy" aria-pressed="false">Iggy, the Puppy</button>
+          </div>
+        </div>
+        <div class="group">
+          <div class="label">2 · Make it official</div>
+          <a class="enter" href="https://claude.ai/login">Ratify and enter</a>
+        </div>
+        <p class="foot">Ratifying takes you on to the real Claude sign-in. This page asks for no passwords, only good behavior.</p>
+        <div class="stamp">NO BIRDS · NO VACUUMS</div>
+        <button type="button" class="shuffle" data-shuffle>Try a different desk</button>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- ============ 2 · BORDER CHECKPOINT ============ -->
+<main class="desk desk-checkpoint">
+  <header class="bar">
+    <span class="brand"><img src="logo.svg" alt="PKNAP logo: Nova and Iggy curled into a yin-yang"><span><b>PKNAP</b>Border Control</span></span>
+    <span>Species verification desk · Window 1 of 1</span>
+  </header>
+  <div class="wrap">
+    <div class="ask">
+      <h1 class="display">State your species.</h1>
+      <div class="declared" data-only="nova"><small>DECLARED</small><span>KITTY</span></div>
+      <div class="declared" data-only="iggy"><small>DECLARED</small><span>PUPPY</span></div>
+    </div>
+    <div class="cards">
+      <button type="button" data-pick="nova" aria-pressed="false">
+        <svg aria-hidden="true"><use href="#nova"/></svg>
+        <span><b>Kitty</b><small>Nova. Serval. Enormous ears, hears the cheese drawer from two rooms away.</small></span>
+      </button>
+      <button type="button" data-pick="iggy" aria-pressed="false">
+        <svg aria-hidden="true"><use href="#iggy"/></svg>
+        <span><b>Puppy</b><small>Iggy. Round glasses, fluffy tail, has never once had a secret.</small></span>
+      </button>
+    </div>
+    <fieldset class="customs">
+      <legend class="label">Customs declaration</legend>
+      <label><input type="checkbox"><span>I am carrying no concealed claws.</span></label>
+      <label><input type="checkbox"><span>I will not bark at, or stare unblinkingly at, the other party.</span></label>
+      <label><input type="checkbox"><span>Any treats on my person are declared and will be shared.</span></label>
+    </fieldset>
+    <a class="enter" href="https://claude.ai/login">Request entry</a>
+    <p class="foot">Entry sends you on to the real Claude sign-in. All other species will be turned away at the gate.</p>
+    <button type="button" class="shuffle" data-shuffle>Try a different desk</button>
+  </div>
+</main>
+
+<!-- ============ 3 · THE HOTLINE ============ -->
+<main class="desk desk-hotline">
+  <header class="bar">
+    <span class="brand"><img src="logo.svg" alt="PKNAP logo: Nova and Iggy curled into a yin-yang"><span><b>PKNAP</b>Meow-Core secure line</span></span>
+    <span style="display:flex;align-items:center;gap:10px"><span class="dot"></span>Puppy ⇄ Kitty direct</span>
+  </header>
+  <div class="wrap">
+    <div class="hero">
+      <svg viewBox="0 0 150 130" role="img" aria-label="A red hotline telephone with a paw print on the dial">
+        <path d="M18 34 Q18 14 40 14 H110 Q132 14 132 34 V44 Q132 52 124 52 H110 Q102 52 102 44 V38 H48 V44 Q48 52 40 52 H26 Q18 52 18 44 Z" fill="#ff5c6c"/>
+        <path d="M36 60 H114 L134 116 Q136 124 126 124 H24 Q14 124 16 116 Z" fill="#ff5c6c"/>
+        <circle cx="75" cy="94" r="24" fill="#14121c"/>
+        <g transform="translate(57 76) scale(0.6)" fill="#ece9f5"><use href="#paw" width="60" height="60"/></g>
+      </svg>
+      <div>
+        <h1 class="display">Pick up the paw-line.</h1>
+        <p>This line exists so that no misunderstanding ever escalates into a hiss. Identify yourself to open the channel.</p>
+      </div>
+    </div>
+    <section aria-label="Current threat level">
+      <div class="label meter-head"><span>Current threat level</span><span>Level 5 · Snuggle</span></div>
+      <div class="meter"><div>Hiss</div><div>Side-eye</div><div>Tolerate</div><div>Nap nearby</div><div class="on">Snuggle</div></div>
+    </section>
+    <section class="console">
+      <div class="group">
+        <div style="font-weight:600">&gt; callsign:</div>
+        <div class="who">
+          <button type="button" data-pick="nova" aria-pressed="false">KITTY ACTUAL</button>
+          <button type="button" data-pick="iggy" aria-pressed="false">PUPPY ACTUAL</button>
+        </div>
+      </div>
+      <a class="enter" href="https://claude.ai/login">OPEN CHANNEL</a>
+      <div class="soft" style="font-size:13px" aria-live="polite" data-say="line">&gt; line idle. awaiting callsign.</div>
+    </section>
+    <p class="foot">Opening the channel connects you to the real Claude sign-in. This line is monitored by absolutely no one. Unauthorized callers (birds, squirrels, the vacuum) will be reported to both signatories.</p>
+    <button type="button" class="shuffle" data-shuffle>Try a different desk</button>
+  </div>
+</main>
+
+<script>
+/* Where the buttons lead. Change this if your team has its own SSO start link. */
+var CLAUDE_LOGIN = 'https://claude.ai/login';
+
+var SAY = {
+  signed: { none: 'awaiting paw print', nova: 'signed, Nova (the Kitty)', iggy: 'signed, Iggy (the Puppy)' },
+  line: {
+    none: '> line idle. awaiting callsign.',
+    nova: '> kitty actual on the line. purring detected. channel ready.',
+    iggy: '> puppy actual on the line. tail wagging detected. channel ready.'
+  }
+};
+var root = document.documentElement;
+var DESKS = ['treaty', 'checkpoint', 'hotline'];
+
+function setWho(who) {
+  root.dataset.who = who;
+  try { localStorage.setItem('pknap-who', who); } catch (e) {}
+  document.querySelectorAll('[data-pick]').forEach(function (b) {
+    b.setAttribute('aria-pressed', String(b.dataset.pick === who));
+  });
+  document.querySelectorAll('[data-say]').forEach(function (el) {
+    el.textContent = SAY[el.dataset.say][who];
+  });
+}
+document.querySelectorAll('[data-pick]').forEach(function (b) {
+  b.addEventListener('click', function () { setWho(b.dataset.pick); });
+});
+document.querySelectorAll('[data-shuffle]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var next = DESKS[(DESKS.indexOf(root.dataset.desk) + 1) % DESKS.length];
+    root.dataset.desk = next;
+    try { localStorage.setItem('pknap-desk', next); } catch (e) {}
+    window.scrollTo(0, 0);
+  });
+});
+document.querySelectorAll('a.enter').forEach(function (a) { a.href = CLAUDE_LOGIN; });
+setWho(root.dataset.who || 'none');
+</script>
+</body>
+</html>

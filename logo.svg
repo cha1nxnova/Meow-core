@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 430" role="img" aria-label="Puppy Kitty Non-Aggression Pact: a yin-yang of Nova the serval and Iggy the puppy asleep, curled around each other">
+  <!-- Nova: ears behind the circle -->
+  <path d="M128 130 C100 80 104 30 124 14 C150 24 180 60 188 96 Z" fill="#2b2d42"/>
+  <path d="M272 130 C300 80 296 30 276 14 C250 24 220 60 212 96 Z" fill="#2b2d42"/>
+
+  <!-- The curl: navy (Nova) base, tan (Iggy) half -->
+  <circle cx="200" cy="250" r="170" fill="#2b2d42"/>
+  <path d="M200 80 A170 170 0 0 1 200 420 A85 85 0 0 1 200 250 A85 85 0 0 0 200 80 Z" fill="#d6b98c"/>
+  <circle cx="200" cy="250" r="170" fill="none" stroke="#2b2d42" stroke-width="6"/>
+
+  <!-- Nova: inner ears, forehead dashes, body spots -->
+  <path d="M136 110 C118 78 119 46 128 34 C146 46 166 70 174 94 Z" fill="#c9cbee"/>
+  <path d="M264 110 C282 78 281 46 272 34 C254 46 234 70 226 94 Z" fill="#c9cbee"/>
+  <path d="M188 106 V124 M212 106 V124" fill="none" stroke="#f1eff8" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="96" cy="200" rx="5" ry="10" transform="rotate(25 96 200)" fill="#f1eff8"/>
+  <ellipse cx="62" cy="262" rx="7" ry="14" transform="rotate(10 62 262)" fill="#f1eff8"/>
+  <ellipse cx="84" cy="338" rx="7" ry="13" transform="rotate(-25 84 338)" fill="#f1eff8"/>
+
+  <!-- Nova: sleeping face -->
+  <path d="M150 178 Q175 168 200 180 Q225 168 250 178 Q246 214 200 224 Q154 214 150 178 Z" fill="#f1eff8"/>
+  <path d="M160 156 Q172 168 184 156 M216 156 Q228 168 240 156" fill="none" stroke="#f1eff8" stroke-width="5" stroke-linecap="round"/>
+  <path d="M192 186 H208 L200 195 Z" fill="#e79ab5" stroke="#e79ab5" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M200 196 Q192 207 182 201 M200 196 Q208 207 218 201" fill="none" stroke="#2b2d42" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M152 190 L124 184 M152 199 L124 205 M248 190 L276 184 M248 199 L276 205" fill="none" stroke="#f1eff8" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Iggy: body markings -->
+  <path d="M300 222 L352 206 M304 240 L356 226 M306 258 L356 246" fill="none" stroke="#7c88c4" stroke-width="6" stroke-linecap="round"/>
+  <path d="M322 274 L329 285 L322 296 L315 285 Z" fill="none" stroke="#7c88c4" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <!-- Iggy: hair tuft, forehead diamond -->
+  <path d="M174 264 Q196 238 224 256 Q206 256 198 274 Q190 262 174 264 Z" fill="#7c88c4"/>
+  <path d="M200 281 L207 291 L200 301 L193 291 Z" fill="none" stroke="#7c88c4" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <!-- Iggy: glasses and sleeping face -->
+  <circle cx="170" cy="328" r="24" fill="#ffffff" fill-opacity="0.4" stroke="#1b1c2b" stroke-width="4"/>
+  <circle cx="230" cy="328" r="24" fill="#ffffff" fill-opacity="0.4" stroke="#1b1c2b" stroke-width="4"/>
+  <path d="M194 328 H206" fill="none" stroke="#1b1c2b" stroke-width="4"/>
+  <path d="M158 330 Q170 340 182 330 M218 330 Q230 340 242 330" fill="none" stroke="#1b1c2b" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="200" cy="364" rx="9" ry="6.5" fill="#4a3b3b"/>
+  <path d="M200 370 V378 M200 378 Q192 386 185 380 M200 378 Q208 386 215 380" fill="none" stroke="#4a3b3b" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M194 383 Q200 398 206 383 Z" fill="#e79ab5"/>
+
+  <!-- Iggy: relaxed ears, on top -->
+  <path d="M130 292 Q66 312 20 384 Q86 392 128 366 Z" fill="#7c88c4"/>
+  <path d="M118 312 Q76 330 44 374 Q88 376 116 358 Z" fill="#ecd9b8"/>
+  <path d="M270 292 Q334 312 380 384 Q314 392 272 366 Z" fill="#7c88c4"/>
+  <path d="M282 312 Q324 330 356 374 Q312 376 284 358 Z" fill="#ecd9b8"/>
+</svg>
