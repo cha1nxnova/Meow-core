@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Puppy Kitty Non-Aggression Pact</title>
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#2b2d42">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <script>
 /* Pick a desk before first paint: a different one from last time on every reload.
    Force one with ?desk=treaty | checkpoint | hotline */
@@ -37,7 +41,7 @@ html[data-desk="hotline"]    { --bg: #14121c; --fg: #ece9f5; --soft: #b3aec6; --
 
 * { box-sizing: border-box; }
 html { background: var(--bg); }
-body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font-family: var(--mono); font-size: 15px; line-height: 1.6; }
+body { margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-text-size-adjust: 100%; background: var(--bg); color: var(--fg); font-family: var(--mono); font-size: 15px; line-height: 1.6; }
 h1, h2, p, ol, fieldset { margin: 0; }
 a { color: inherit; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -47,12 +51,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 html[data-desk="treaty"] .desk-treaty,
 html[data-desk="checkpoint"] .desk-checkpoint,
 html[data-desk="hotline"] .desk-hotline { display: flex; }
-.desk { min-height: 100vh; flex-direction: column; align-items: center; gap: 32px; padding: 32px 5% 40px; }
+.desk { min-height: 100vh; min-height: 100dvh; flex-direction: column; align-items: center; gap: 32px; padding: 32px 5% 40px; }
 .wrap { width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 28px; }
 
 .bar { width: 100%; max-width: 1120px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-bottom: 14px; border-bottom: 2px solid var(--fg); font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
 .brand { display: flex; align-items: center; gap: 14px; }
-.brand img { width: 64px; height: 69px; padding: 6px; border-radius: 16px; background: #e9e7f2; }
+.brand .logo { flex: none; width: 64px; height: 69px; padding: 6px; border-radius: 16px; background: #e9e7f2; }
 .brand b { display: block; font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: 4px; line-height: 1; }
 
 .label { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
@@ -78,7 +82,7 @@ html[data-who="nova"] [data-only="nova"], html[data-who="iggy"] [data-only="iggy
 /* the "you're in" moment before handing off to Claude */
 .admit { position: fixed; inset: 0; z-index: 10; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 24px; background: var(--bg); color: var(--fg); text-align: center; }
 html[data-admitted] .admit { display: flex; }
-.admit img { width: 150px; padding: 12px; border-radius: 28px; background: #e9e7f2; }
+.admit .logo { width: 150px; height: 161px; padding: 12px; border-radius: 28px; background: #e9e7f2; }
 .admit strong { padding: 10px 24px; border: 6px solid var(--accent); border-radius: 8px; color: var(--accent); font-size: clamp(30px, 8vw, 56px); font-weight: 600; letter-spacing: 6px; transform: rotate(-6deg); animation: thunk 0.35s cubic-bezier(.2,1.6,.4,1) both; }
 @keyframes thunk { from { transform: rotate(-6deg) scale(2.4); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .admit strong { animation: none; } }
@@ -142,12 +146,96 @@ html[data-who="nova"] .cards [data-pick="nova"], html[data-who="iggy"] .cards [d
 .desk-hotline .who button { letter-spacing: 2px; }
 .desk-hotline .enter { font-family: var(--mono); font-weight: 600; font-size: 17px; letter-spacing: 3px; }
 html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--lav); color: #14121c; }
+
+.only-phone { display: none; }
+/* ---------- phones ---------- */
+@media (max-width: 700px) {
+  .desk { gap: 20px; padding: 16px 16px 28px; }
+  .wrap { gap: 20px; }
+  .bar { padding-bottom: 12px; }
+  .bar .aside { display: none; }
+  .brand .logo { width: 52px; height: 56px; padding: 5px; border-radius: 13px; }
+  .brand b { font-size: 22px; }
+  .who button { flex: 1 1 120px; padding: 8px 10px; font-size: 14px; }
+  .shuffle { align-self: stretch; }
+  .foot { font-size: 12px; }
+  .only-phone { display: block; }
+
+  /* treaty: sign-in first, the document underneath */
+  .desk-treaty .split { gap: 28px; }
+  .side { order: -1; flex-basis: 100%; gap: 18px; padding-top: 0; }
+  .side h2 { font-size: 26px; }
+  .side .stamp, .side .shuffle { display: none; }
+  .paper { flex-basis: 100%; padding: 22px 20px; gap: 16px; box-shadow: 5px 5px 0 var(--navy); }
+  .articles { gap: 10px; font-size: 13px; }
+  .articles li { gap: 10px; }
+  .articles b { flex-basis: 62px; }
+  .sigline { font-size: 19px; min-height: 56px; }
+  .sigline svg { width: 40px; height: 40px; }
+
+  /* checkpoint: two compact species cards side by side */
+  .ask { align-items: center; gap: 12px; }
+  .ask h1 { font-size: clamp(34px, 11vw, 48px); flex: 1 1 0; }
+  .declared { padding: 6px 10px; border-width: 3px; }
+  .declared span { font-size: 18px; letter-spacing: 2px; }
+  .cards { gap: 14px; flex-wrap: nowrap; }
+  .cards button { flex: 1 1 0; flex-direction: column; gap: 8px; padding: 14px 8px; text-align: center; border-radius: 12px; }
+  .cards svg { width: 84px; height: 84px; }
+  .cards b { font-size: 26px; }
+  .cards small { font-size: 12px; line-height: 1.4; }
+  .customs { padding: 10px 14px; font-size: 13px; }
+
+  /* hotline: phone sits beside the headline */
+  .desk-hotline { justify-content: flex-start; }
+  .hero { gap: 16px; flex-wrap: nowrap; align-items: flex-start; }
+  .hero svg { width: 84px; height: 73px; margin-top: 4px; }
+  .hero div { flex: 1 1 0; gap: 8px; }
+  .hero h1 { font-size: clamp(30px, 9.5vw, 42px); }
+  .hero p { font-size: 13px; }
+  .meter { gap: 4px; font-size: 9.5px; letter-spacing: 0; }
+  .meter div { padding: 8px 1px; display: grid; place-items: center; }
+  .console { padding: 18px; gap: 16px; }
+  .desk-hotline .who button { letter-spacing: 1px; }
+}
 </style>
 </head>
 <body>
 
 <!-- shared drawings -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 400 430">
+    <path d="M128 130 C100 80 104 30 124 14 C150 24 180 60 188 96 Z" fill="#2b2d42"/>
+    <path d="M272 130 C300 80 296 30 276 14 C250 24 220 60 212 96 Z" fill="#2b2d42"/>
+    <circle cx="200" cy="250" r="170" fill="#2b2d42"/>
+    <path d="M200 80 A170 170 0 0 1 200 420 A85 85 0 0 1 200 250 A85 85 0 0 0 200 80 Z" fill="#d6b98c"/>
+    <circle cx="200" cy="250" r="170" fill="none" stroke="#2b2d42" stroke-width="6"/>
+    <path d="M136 110 C118 78 119 46 128 34 C146 46 166 70 174 94 Z" fill="#c9cbee"/>
+    <path d="M264 110 C282 78 281 46 272 34 C254 46 234 70 226 94 Z" fill="#c9cbee"/>
+    <path d="M188 106 V124 M212 106 V124" fill="none" stroke="#f1eff8" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="96" cy="200" rx="5" ry="10" transform="rotate(25 96 200)" fill="#f1eff8"/>
+    <ellipse cx="62" cy="262" rx="7" ry="14" transform="rotate(10 62 262)" fill="#f1eff8"/>
+    <ellipse cx="84" cy="338" rx="7" ry="13" transform="rotate(-25 84 338)" fill="#f1eff8"/>
+    <path d="M150 178 Q175 168 200 180 Q225 168 250 178 Q246 214 200 224 Q154 214 150 178 Z" fill="#f1eff8"/>
+    <path d="M160 156 Q172 168 184 156 M216 156 Q228 168 240 156" fill="none" stroke="#f1eff8" stroke-width="5" stroke-linecap="round"/>
+    <path d="M192 186 H208 L200 195 Z" fill="#e79ab5" stroke="#e79ab5" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M200 196 Q192 207 182 201 M200 196 Q208 207 218 201" fill="none" stroke="#2b2d42" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M152 190 L124 184 M152 199 L124 205 M248 190 L276 184 M248 199 L276 205" fill="none" stroke="#f1eff8" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M300 222 L352 206 M304 240 L356 226 M306 258 L356 246" fill="none" stroke="#7c88c4" stroke-width="6" stroke-linecap="round"/>
+    <path d="M322 274 L329 285 L322 296 L315 285 Z" fill="none" stroke="#7c88c4" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M174 264 Q196 238 224 256 Q206 256 198 274 Q190 262 174 264 Z" fill="#7c88c4"/>
+    <path d="M200 281 L207 291 L200 301 L193 291 Z" fill="none" stroke="#7c88c4" stroke-width="3.5" stroke-linejoin="round"/>
+    <circle cx="170" cy="328" r="24" fill="#ffffff" fill-opacity="0.4" stroke="#1b1c2b" stroke-width="4"/>
+    <circle cx="230" cy="328" r="24" fill="#ffffff" fill-opacity="0.4" stroke="#1b1c2b" stroke-width="4"/>
+    <path d="M194 328 H206" fill="none" stroke="#1b1c2b" stroke-width="4"/>
+    <path d="M158 330 Q170 340 182 330 M218 330 Q230 340 242 330" fill="none" stroke="#1b1c2b" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="200" cy="364" rx="9" ry="6.5" fill="#4a3b3b"/>
+    <path d="M200 370 V378 M200 378 Q192 386 185 380 M200 378 Q208 386 215 380" fill="none" stroke="#4a3b3b" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M194 383 Q200 398 206 383 Z" fill="#e79ab5"/>
+    <path d="M130 292 Q66 312 20 384 Q86 392 128 366 Z" fill="#7c88c4"/>
+    <path d="M118 312 Q76 330 44 374 Q88 376 116 358 Z" fill="#ecd9b8"/>
+    <path d="M270 292 Q334 312 380 384 Q314 392 272 366 Z" fill="#7c88c4"/>
+    <path d="M282 312 Q324 330 356 374 Q312 376 284 358 Z" fill="#ecd9b8"/>
+  </symbol>
   <symbol id="nova" viewBox="0 0 100 100">
     <path d="M22 50 C8 30 10 10 20 2 C34 10 44 24 46 36 Z" fill="#2b2d42"/>
     <path d="M78 50 C92 30 90 10 80 2 C66 10 56 24 54 36 Z" fill="#2b2d42"/>
@@ -187,8 +275,8 @@ html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--
 <!-- ============ 1 · SIGN THE TREATY ============ -->
 <main class="desk desk-treaty">
   <header class="bar">
-    <span class="brand"><img src="logo.svg" alt="PKNAP logo: Nova and Iggy curled into a yin-yang"><span><b>PKNAP</b>Office of the Treaty</span></span>
-    <span>Members only (both of you)</span>
+    <span class="brand"><svg class="logo" viewBox="0 0 400 430" role="img" aria-label="PKNAP logo: Nova and Iggy curled into a yin-yang"><use href="#logo"/></svg><span><b>PKNAP</b>Office of the Treaty</span></span>
+    <span class="aside">Members only (both of you)</span>
   </header>
   <div class="wrap">
     <div class="split">
@@ -228,14 +316,15 @@ html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--
         <button type="button" class="shuffle" data-shuffle>Try a different desk</button>
       </section>
     </div>
+    <button type="button" class="shuffle only-phone" data-shuffle>Try a different desk</button>
   </div>
 </main>
 
 <!-- ============ 2 · BORDER CHECKPOINT ============ -->
 <main class="desk desk-checkpoint">
   <header class="bar">
-    <span class="brand"><img src="logo.svg" alt="PKNAP logo: Nova and Iggy curled into a yin-yang"><span><b>PKNAP</b>Border Control</span></span>
-    <span>Species verification desk · Window 1 of 1</span>
+    <span class="brand"><svg class="logo" viewBox="0 0 400 430" role="img" aria-label="PKNAP logo: Nova and Iggy curled into a yin-yang"><use href="#logo"/></svg><span><b>PKNAP</b>Border Control</span></span>
+    <span class="aside">Species verification desk · Window 1 of 1</span>
   </header>
   <div class="wrap">
     <div class="ask">
@@ -272,7 +361,7 @@ html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--
 <!-- ============ 3 · THE HOTLINE ============ -->
 <main class="desk desk-hotline">
   <header class="bar">
-    <span class="brand"><img src="logo.svg" alt="PKNAP logo: Nova and Iggy curled into a yin-yang"><span><b>PKNAP</b>Meow-Core secure line</span></span>
+    <span class="brand"><svg class="logo" viewBox="0 0 400 430" role="img" aria-label="PKNAP logo: Nova and Iggy curled into a yin-yang"><use href="#logo"/></svg><span><b>PKNAP</b>Meow-Core secure line</span></span>
     <span style="display:flex;align-items:center;gap:10px"><span class="dot"></span>Puppy ⇄ Kitty direct</span>
   </header>
   <div class="wrap">
@@ -301,7 +390,7 @@ html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--
         </div>
       </div>
       <form class="gate" action="https://claude.ai/login" method="get" autocomplete="off">
-          <label class="label" for="pass-hotline">&gt; passphrase:</label>
+          <label for="pass-hotline" style="font-weight:600">&gt; passphrase:</label>
           <input class="pass" id="pass-hotline" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" placeholder="meow is traditional">
           <button type="submit" class="enter">OPEN CHANNEL</button>
         </form>
@@ -313,7 +402,7 @@ html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--
 </main>
 
 <div class="admit" role="status" aria-live="assertive">
-  <img src="logo.svg" alt="">
+  <svg class="logo" viewBox="0 0 400 430" aria-hidden="true"><use href="#logo"/></svg>
   <strong data-admit-stamp>ADMITTED</strong>
   <p data-admit-line>Escorting you to the Claude sign-in.</p>
 </div>
