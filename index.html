@@ -70,7 +70,18 @@ html[data-who="iggy"] .who [data-pick="iggy"] { background: var(--tan); color: v
 [data-only] { display: none; }
 html[data-who="nova"] [data-only="nova"], html[data-who="iggy"] [data-only="iggy"], html[data-who="none"] [data-only="none"] { display: inline-flex; }
 
-.enter { display: flex; align-items: center; justify-content: center; min-height: 60px; padding: 10px 24px; border-radius: 8px; background: var(--accent); color: var(--on-accent); text-decoration: none; text-align: center; font-family: var(--display); font-weight: 700; font-size: 22px; }
+.gate { display: flex; flex-direction: column; gap: 10px; }
+.pass { width: 100%; min-height: 56px; padding: 0 16px; border: 2px solid var(--fg); border-radius: 8px; background: var(--field); color: var(--fg); font: inherit; font-size: 16px; -webkit-text-security: disc; }
+.pass::placeholder { color: var(--soft); opacity: 0.7; -webkit-text-security: none; }
+.enter { width: 100%; margin-top: 6px; display: flex; align-items: center; justify-content: center; min-height: 60px; padding: 10px 24px; border: 0; border-radius: 8px; background: var(--accent); color: var(--on-accent); text-align: center; font-family: var(--display); font-weight: 700; font-size: 22px; }
+
+/* the "you're in" moment before handing off to Claude */
+.admit { position: fixed; inset: 0; z-index: 10; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 24px; background: var(--bg); color: var(--fg); text-align: center; }
+html[data-admitted] .admit { display: flex; }
+.admit img { width: 150px; padding: 12px; border-radius: 28px; background: #e9e7f2; }
+.admit strong { padding: 10px 24px; border: 6px solid var(--accent); border-radius: 8px; color: var(--accent); font-size: clamp(30px, 8vw, 56px); font-weight: 600; letter-spacing: 6px; transform: rotate(-6deg); animation: thunk 0.35s cubic-bezier(.2,1.6,.4,1) both; }
+@keyframes thunk { from { transform: rotate(-6deg) scale(2.4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .admit strong { animation: none; } }
 .enter:hover { filter: brightness(1.08); }
 .shuffle { align-self: flex-start; min-height: 44px; padding: 8px 14px; border: 2px dashed var(--soft); border-radius: 8px; background: transparent; color: var(--soft); font-size: 13px; }
 .foot { font-size: 13px; color: var(--soft); }
@@ -88,6 +99,7 @@ html[data-who="nova"] [data-only="nova"], html[data-who="iggy"] [data-only="iggy
 .side { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 22px; padding-top: 8px; }
 .side h2 { font-family: var(--display); font-weight: 700; font-size: 30px; line-height: 1.1; }
 .desk-treaty .enter { background: var(--navy); color: #ffffff; border: 2px solid var(--navy); box-shadow: 5px 5px 0 var(--accent); }
+.desk-treaty .pass { border-color: var(--navy); }
 .group { display: flex; flex-direction: column; gap: 10px; }
 
 /* 2. checkpoint */
@@ -206,11 +218,12 @@ html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--
             <button type="button" data-pick="iggy" aria-pressed="false">Iggy, the Puppy</button>
           </div>
         </div>
-        <div class="group">
-          <div class="label">2 · Make it official</div>
-          <a class="enter" href="https://claude.ai/login">Ratify and enter</a>
-        </div>
-        <p class="foot">Ratifying takes you on to the real Claude sign-in. This page asks for no passwords, only good behavior.</p>
+        <form class="gate" action="https://claude.ai/login" method="get" autocomplete="off">
+          <label class="label" for="pass-treaty">2 · Secret passphrase</label>
+          <input class="pass" id="pass-treaty" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" placeholder="the one we agreed on">
+          <button type="submit" class="enter">Ratify and enter</button>
+        </form>
+        <p class="foot">Any passphrase is accepted, and it never leaves this page. Ratifying takes you on to the real Claude sign-in.</p>
         <div class="stamp">NO BIRDS · NO VACUUMS</div>
         <button type="button" class="shuffle" data-shuffle>Try a different desk</button>
       </section>
@@ -246,8 +259,12 @@ html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--
       <label><input type="checkbox"><span>I will not bark at, or stare unblinkingly at, the other party.</span></label>
       <label><input type="checkbox"><span>Any treats on my person are declared and will be shared.</span></label>
     </fieldset>
-    <a class="enter" href="https://claude.ai/login">Request entry</a>
-    <p class="foot">Entry sends you on to the real Claude sign-in. All other species will be turned away at the gate.</p>
+    <form class="gate" action="https://claude.ai/login" method="get" autocomplete="off">
+          <label class="label" for="pass-checkpoint">Passphrase (whisper it)</label>
+          <input class="pass" id="pass-checkpoint" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" placeholder="any word will do">
+          <button type="submit" class="enter">Request entry</button>
+        </form>
+    <p class="foot">Any passphrase is accepted, and it never leaves this page. Entry sends you on to the real Claude sign-in. All other species will be turned away at the gate.</p>
     <button type="button" class="shuffle" data-shuffle>Try a different desk</button>
   </div>
 </main>
@@ -283,13 +300,23 @@ html[data-who="nova"] .desk-hotline .who [data-pick="nova"] { background: var(--
           <button type="button" data-pick="iggy" aria-pressed="false">PUPPY ACTUAL</button>
         </div>
       </div>
-      <a class="enter" href="https://claude.ai/login">OPEN CHANNEL</a>
+      <form class="gate" action="https://claude.ai/login" method="get" autocomplete="off">
+          <label class="label" for="pass-hotline">&gt; passphrase:</label>
+          <input class="pass" id="pass-hotline" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" placeholder="meow is traditional">
+          <button type="submit" class="enter">OPEN CHANNEL</button>
+        </form>
       <div class="soft" style="font-size:13px" aria-live="polite" data-say="line">&gt; line idle. awaiting callsign.</div>
     </section>
-    <p class="foot">Opening the channel connects you to the real Claude sign-in. This line is monitored by absolutely no one. Unauthorized callers (birds, squirrels, the vacuum) will be reported to both signatories.</p>
+    <p class="foot">Any passphrase is accepted, and it never leaves this page. Opening the channel connects you to the real Claude sign-in. This line is monitored by absolutely no one. Unauthorized callers (birds, squirrels, the vacuum) will be reported to both signatories.</p>
     <button type="button" class="shuffle" data-shuffle>Try a different desk</button>
   </div>
 </main>
+
+<div class="admit" role="status" aria-live="assertive">
+  <img src="logo.svg" alt="">
+  <strong data-admit-stamp>ADMITTED</strong>
+  <p data-admit-line>Escorting you to the Claude sign-in.</p>
+</div>
 
 <script>
 /* Where the buttons lead. Change this if your team has its own SSO start link. */
@@ -327,7 +354,24 @@ document.querySelectorAll('[data-shuffle]').forEach(function (b) {
     window.scrollTo(0, 0);
   });
 });
-document.querySelectorAll('a.enter').forEach(function (a) { a.href = CLAUDE_LOGIN; });
+/* The gate: every passphrase is correct. Nothing typed is stored or sent
+   (the field has no name, so it is not even part of the form submission). */
+var STAMP = { treaty: 'RATIFIED', checkpoint: 'ADMITTED', hotline: 'CHANNEL OPEN' };
+var GUEST = { none: 'you', nova: 'Nova', iggy: 'Iggy' };
+document.querySelectorAll('form.gate').forEach(function (f) {
+  f.action = CLAUDE_LOGIN;
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    f.querySelector('.pass').value = '';
+    document.querySelector('[data-admit-stamp]').textContent = STAMP[root.dataset.desk];
+    document.querySelector('[data-admit-line]').textContent =
+      'Passphrase accepted. Escorting ' + GUEST[root.dataset.who] + ' to the Claude sign-in.';
+    root.dataset.admitted = '';
+    setTimeout(function () { location.href = CLAUDE_LOGIN; }, 1500);
+  });
+});
+/* coming back with the browser Back button should show the desk again */
+window.addEventListener('pageshow', function () { delete root.dataset.admitted; });
 setWho(root.dataset.who || 'none');
 </script>
 </body>
